@@ -6,9 +6,9 @@ This is the API service concerning the Mean object
 {
   "idIntervention": "boolean",
   "location": {
-    "x": int,
-    "y": int,
-    "z": int,
+    "x": double,
+    "y": double,
+    "z": double
   },
   "state": "string",
   "role": "string",
