@@ -1,7 +1,7 @@
 # Mean Service
 This is the API service concerning the Mean object
 
-##Object model
+## Object model
 ```
 {
   "idIntervention": "boolean",
@@ -17,7 +17,7 @@ This is the API service concerning the Mean object
 }
 ```
 
-##API path
+## API path
 
 There is all the path provided by this service
 - GET   - /api/means
