@@ -1,6 +1,7 @@
 module.exports = function(Mean) {
   const USERSERVICE_URL = 'http://projetm2gla.istic.univ-rennes1.fr:12346/';
-  Mean.beforeRemote('*', function(ctx, unused, next) {
+  
+  /*Mean.beforeRemote('*', function(ctx, unused, next) {
     Mean.app.datasources.auth
     .checkAuth(ctx.req.headers.userid, ctx.req.headers.token,
         function (err, response) {
@@ -12,10 +13,32 @@ module.exports = function(Mean) {
         next();
       }
     });
-  });
+  });*/
+  
   Mean.disableRemoteMethod('deleteById', true);
   Mean.disableRemoteMethod('updateAll', true);
   Mean.disableRemoteMethod('createChangeStream', true);
   Mean.disableRemoteMethod('findOne', true);
   Mean.disableRemoteMethod('exists', true);
+
+
+  /**
+   * return all the SIG used in the intervention passed as parameter
+   * @param id
+   * @param callback
+   */
+  Mean.getByIntervention= function(id, callback) {
+    Mean.find({ where: {intervention: id} }, function(err, Means) {
+      callback(null, Means);
+    })
+  };
+
+  Mean.remoteMethod(
+    'getByIntervention',
+    {
+      http: {path: '/intervention/:id', verb: 'get'},
+      accepts: {arg: 'id', type: 'number', required: true},
+      returns: {type: 'array', root: true}
+    }
+  );
 };

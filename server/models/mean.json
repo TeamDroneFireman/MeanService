@@ -6,8 +6,8 @@
     "validateUpsert": true
   },
   "properties": {
-    "idIntervention": {
-      "type": "object",
+    "intervention": {
+      "type": "number",
       "required": true
     },
     "location": {
