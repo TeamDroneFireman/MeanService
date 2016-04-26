@@ -1,5 +1,5 @@
 module.exports = function(Mean) {
-
+/*
   Mean.beforeRemote('*', function(ctx, unused, next) {
     Mean.app.datasources.auth
     .checkAuth(ctx.req.headers.userid, ctx.req.headers.token,
@@ -13,7 +13,7 @@ module.exports = function(Mean) {
       }
     });
   });
-
+*/
   Mean.disableRemoteMethod('deleteById', true);
   Mean.disableRemoteMethod('updateAll', true);
   Mean.disableRemoteMethod('createChangeStream', true);
