@@ -1,5 +1,4 @@
 module.exports = function(Mean) {
-  const USERSERVICE_URL = 'http://projetm2gla.istic.univ-rennes1.fr:12346/';
 
   Mean.beforeRemote('*', function(ctx, unused, next) {
     Mean.app.datasources.auth
@@ -30,7 +29,7 @@ module.exports = function(Mean) {
   Mean.getByIntervention= function(id, callback) {
     Mean.find({ where: {intervention: id} }, function(err, Means) {
       callback(null, Means);
-    })
+    });
   };
 
   Mean.remoteMethod(
