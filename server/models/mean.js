@@ -1,7 +1,7 @@
 module.exports = function(Mean) {
 
   Mean.beforeRemote('*', function(ctx, unused, next) {
-    Mean.app.datasources.auth
+    Mean.app.datasources.userService
     .checkAuth(ctx.req.headers.userid, ctx.req.headers.token,
         function (err, response) {
       if (err || response.error || response.id !== ctx.req.headers.token) {
