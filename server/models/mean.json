@@ -14,8 +14,8 @@
       "type": "object",
       "required": true
     },
-    "state": {
-      "type": "string",
+    "states": {
+      "type": "object",
       "required": true
     },
     "role": {
