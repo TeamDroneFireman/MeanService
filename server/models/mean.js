@@ -36,7 +36,7 @@ module.exports = function(Mean) {
     'getByIntervention',
     {
       http: {path: '/intervention/:id', verb: 'get'},
-      accepts: {arg: 'id', type: 'number', required: true},
+      accepts: {arg: 'id', type: 'string', required: true},
       returns: {type: 'array', root: true}
     }
   );
