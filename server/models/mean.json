@@ -7,7 +7,7 @@
   },
   "properties": {
     "intervention": {
-      "type": "number",
+      "type": "string",
       "required": true
     },
     "location": {
