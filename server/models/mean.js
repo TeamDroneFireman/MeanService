@@ -14,7 +14,18 @@ module.exports = function(Mean) {
     });
   });
 */
-  //Mean.disableRemoteMethod('deleteById', true);
+
+  Mean.beforeRemote('create', function(ctx, models, next){
+    var model = ctx.args.data;
+    var rePattern = new RegExp(/(.*?)\s*?(\d+)?$/);
+    var str = model.name.replace(rePattern, '$1');
+    Mean.count({intervention: model.intervention, name: {like: str} }, function(err, res){ //, name: {$regex: reg}
+      console.log('count for ' +model.name+ ' is '+ (res+1) );
+      model.name = model.name + ' ' + (res+1);
+      next();
+    });
+  });
+
   Mean.disableRemoteMethod('updateAll', true);
   Mean.disableRemoteMethod('createChangeStream', true);
   Mean.disableRemoteMethod('findOne', true);
@@ -40,4 +51,5 @@ module.exports = function(Mean) {
       returns: {type: 'array', root: true}
     }
   );
+
 };
