@@ -15,12 +15,15 @@ module.exports = function(Mean) {
   });
 */
 
-  Mean.beforeRemote('create', function(ctx, models, next){
+  /**
+   * save the drone with a numbered name
+   * each number is specific for a name and intervention
+   */
+  Mean.beforeRemote('create', function(ctx, unused, next){
     var model = ctx.args.data;
     var rePattern = new RegExp(/(.*?)\s*?(\d+)?$/);
     var str = model.name.replace(rePattern, '$1');
-    Mean.count({intervention: model.intervention, name: {like: str} }, function(err, res){ //, name: {$regex: reg}
-      console.log('count for ' +model.name+ ' is '+ (res+1) );
+    Mean.count({intervention: model.intervention, name: {like: str} }, function(err, res){
       model.name = model.name + ' ' + (res+1);
       next();
     });
