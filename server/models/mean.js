@@ -56,4 +56,18 @@ module.exports = function(Mean) {
     }
   );
 
+  Mean.remoteMethod('getAskedMeansByIntervention', {
+      http: {path: '/intervention/:id/asked/', verb: 'get'},
+      accepts: {arg: 'id', type: 'string', required: true},
+      returns: {type: 'array', root: true}
+    }
+  );
+
+  Mean.getAskedMeansByIntervention = function (id,callback) {
+    Mean.find({ where: {and: [{intervention: id}, {currentState: 'ASKED'}]} },
+      function(err, means) {
+        callback(null, means);
+      });
+  };
+
 };
