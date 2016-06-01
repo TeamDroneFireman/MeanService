@@ -21,13 +21,19 @@ module.exports = function(Mean) {
    */
   Mean.beforeRemote('create', function(ctx, unused, next){
     var model = ctx.args.data;
-    var rePattern = new RegExp(/(.*?)\s*?(\d+)?$/);
-    var str = model.name.replace(rePattern, '$1');
-    Mean.count({intervention: model.intervention, name: {like: str} },
-      function(err, res){
-        model.name = model.name + ' ' + (res+1);
-        next();
-    });
+    var dPattern = new RegExp(/\d+$/);
+    var hasNum = dPattern.test(model.name);
+    if (!hasNum){
+      var rePattern = new RegExp(/(.*?)\s*?(\d+)?$/);
+      var str = model.name.replace(rePattern, '$1');
+      Mean.count({intervention: model.intervention, name: {like: str} },
+        function(err, res){
+          model.name = model.name + ' ' + (res+1);
+          next();
+      });
+    } else {
+      next();
+    }
   });
 
   Mean.disableRemoteMethod('updateAll', true);
