@@ -9,21 +9,49 @@
     "connector": "mongodb"
   },
   "userService": {
-  "connector": "rest",
-  "debug": "false",
-  "operations": [{
-    "template": {
-      "method": "GET",
-      "url": "http://projetm2gla.istic.univ-rennes1.fr/api/SITUsers/{userId}/accessTokens/{token}",
-      "headers": {
-        "accepts": "application/json",
-        "content-type": "application/json",
-        "Host": "user.docker.localhost"
+    "connector": "rest",
+    "debug": "false",
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "http://projetm2gla.istic.univ-rennes1.fr/api/SITUsers/{userId}/accessTokens/{token}",
+          "headers": {
+            "accepts": "application/json",
+            "content-type": "application/json",
+            "Host": "user.docker.localhost"
+          }
+        },
+        "functions": {
+          "checkAuth": [
+            "userId",
+            "token"
+          ]
+        }
       }
-    },
-    "functions": {
-      "checkAuth": ["userId", "token"]
-    }
-  }]
-}
+    ]
+  },
+  "pushService": {
+    "connector": "rest",
+    "debug": "false",
+    "operations": [
+      {
+        "template": {
+          "method": "POST",
+          "url": "http://projetm2gla.istic.univ-rennes1.fr/api/pushMessages",
+          "headers": {
+            "accepts": "application/json",
+            "content-type": "application/json",
+            "Host": "push.docker.localhost"
+          },
+          "body": "{data}"
+        },
+        "functions": {
+          "create": [
+            "data"
+          ]
+        }
+      }
+    ]
+  }
 }

@@ -76,4 +76,39 @@ module.exports = function(Mean) {
       });
   };
 
+  Mean.afterRemote('create',function (ctx, unused, next) {
+    sendPushMessage(ctx.result, 'Mean/Create');
+    next();
+  });
+
+  Mean.afterRemote('upsert',function (ctx, unused, next) {
+    sendPushMessage(ctx.result, 'Mean/Update');
+    next();
+  });
+
+  Mean.afterRemote('updateAll',function (ctx, unused, next) {
+    sendPushMessage(ctx.result, 'Drone/Update');
+    next();
+  });
+  
+  Mean.afterRemote('deleteById',function (ctx, unused, next) {
+    sendPushMessage(ctx.result, 'Mean/Delete');
+    next();
+  });   
+
+  function sendPushMessage(mean,topic){
+    var pushMessage = {
+      idIntervention : mean.intervention,
+      idElement : mean.id,
+      timestamp : Date.now(),
+      topic : topic
+    };
+    var pushService = Mean.app.datasources.pushService;
+    pushService.create(pushMessage, function(err,data){
+      if (err) throw err;
+      if (data.error)
+        next('> response error: ' + err.error.stack);
+    });
+  }
 };
+
