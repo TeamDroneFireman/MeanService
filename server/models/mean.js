@@ -94,7 +94,12 @@ module.exports = function(Mean) {
   Mean.afterRemote('deleteById',function (ctx, unused, next) {
     sendPushMessage(ctx.result, 'Mean/Delete');
     next();
-  });   
+  });
+
+  Mean.afterRemote('prototype.updateAttributes',function (ctx, unused, next) {
+    sendPushMessage(ctx.result, 'Mean/Update');
+    next();
+  });
 
   function sendPushMessage(mean,topic){
     var pushMessage = {
