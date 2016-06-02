@@ -105,7 +105,7 @@ module.exports = function(Mean) {
     var pushMessage = {
       idIntervention : mean.intervention,
       idElement : mean.id,
-      timestamp : Date.now(),
+      timestamp : new Date(Date.now()),
       topic : topic
     };
     var pushService = Mean.app.datasources.pushService;
